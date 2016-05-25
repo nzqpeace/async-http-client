@@ -1,3 +1,5 @@
+.idea
+cmake/
 CMakeCache.txt
 CMakeFiles
 CMakeScripts
