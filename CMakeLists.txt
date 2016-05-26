@@ -19,13 +19,13 @@ set(SOURCE_FILES
     loop.cpp
     loop.h)
 add_library(httpclient ${SOURCE_FILES})
-target_link_libraries(httpclient uv.a)
+target_link_libraries(httpclient uv)
 
 add_executable(async_http_test
     test/main.cpp
     test/test_url.cpp
 )
-target_link_libraries(async_http_test gtest.a httpclient)
+target_link_libraries(async_http_test gtest httpclient)
 
 add_executable(async_http_sample
         sample/main.cpp
