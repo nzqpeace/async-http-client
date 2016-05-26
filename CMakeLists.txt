@@ -19,15 +19,30 @@ set(SOURCE_FILES
     loop.cpp
     loop.h)
 add_library(httpclient ${SOURCE_FILES})
-target_link_libraries(httpclient uv)
+
+if (APPLE)
+    target_link_libraries(httpclient uv.a)
+else (UNIX)
+    target_link_libraries(httpclient uv.a rt)
+endif (APPLE)
 
 add_executable(async_http_test
     test/main.cpp
     test/test_url.cpp
 )
-target_link_libraries(async_http_test gtest httpclient)
+
+if (APPLE)
+    target_link_libraries(async_http_test gtest.a httpclient)
+else (UNIX)
+    target_link_libraries(async_http_test gtest.a httpclient pthread)
+endif (APPLE)
 
 add_executable(async_http_sample
         sample/main.cpp
         sample/main.cpp)
-target_link_libraries(async_http_sample httpclient)
+
+if (APPLE)
+    target_link_libraries(async_http_sample httpclient)
+else (UNIX)
+    target_link_libraries(async_http_sample httpclient pthread rt)
+endif (APPLE)

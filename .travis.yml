@@ -27,4 +27,4 @@ script:
     - cd cmake
     - cmake ..
     - make
-    - ./async_http_test
+    - sudo ./async_http_test
