@@ -24,4 +24,4 @@ script:
     - cd cmake
     - cmake ..
     - make
-    -./async_http_test
+    - ./async_http_test
