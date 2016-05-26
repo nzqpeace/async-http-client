@@ -1,4 +1,4 @@
-# async-http-clinet
+# async-http-clinet [![Build Status](https://travis-ci.org/nzqpeace/async-http-clinet.svg?branch=master)](https://travis-ci.org/nzqpeace/async-http-clinet)
 An asychronous http client written by c++, provide a simple and convenient interface.
 
 based on [libuv](https://github.com/libuv/libuv) and [http_parser](https://github.com/nodejs/http-parser).

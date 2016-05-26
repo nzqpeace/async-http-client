@@ -14,13 +14,13 @@ before_install:
     - sh ./autogen.sh
     - ./configure
     - make
-    - make install
+    - sudo make install
     - cd ..
     - git clone https://github.com/google/googletest
     - cd googletest/googletest/cmake
     - cmake ..
     - make
-    - make install
+    - sudo make install
     - cd ../../..
 script:
     - mkdir cmake
