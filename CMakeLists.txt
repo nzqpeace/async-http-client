@@ -12,14 +12,18 @@ set(SOURCE_FILES
     url.cpp
     async_client.h
     async_client.cpp
-)
+    request.cpp
+    request.h
+    response.cpp
+    response.h
+    loop.cpp
+    loop.h)
 add_library(httpclient ${SOURCE_FILES})
 target_link_libraries(httpclient uv.a)
 
 add_executable(async_http_test
     test/main.cpp
     test/test_url.cpp
-    test/test_httpclient.cpp
 )
 target_link_libraries(async_http_test gtest.a httpclient)
 
