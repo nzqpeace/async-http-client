@@ -66,7 +66,7 @@ typedef void (*HTTP_CALLBACK)(Request*, Response*);
 Also, we can create complex request through interface `bool start(Request *req)`, for example:
 ```cpp
 // Request(zq::loop* loop, http_method method, const std::string& url, const std::string& body, HTTP_CALLBACK cb = NULL);
-zq::http::Request* req = new zq::http::request(loop, HTTP_GET, url, body, cb);
+zq::http::Request* req = new zq::http::Request(loop, HTTP_GET, url, body, cb);
 req.set_header(key, value);
 req.set_proto_major(2);
 req.set_proto_minor(0);

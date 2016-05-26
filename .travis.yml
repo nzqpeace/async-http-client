@@ -1,0 +1,27 @@
+language: cpp
+compiler:
+    - clang
+    - gcc
+os:
+    - linux
+    - osx
+before_install:
+    - git clone https://github.com/libuv/libuv
+    - cd libuv
+    - sh ./autogen.sh
+    - ./configure
+    - make
+    - make install
+    - cd ..
+    - git clone https://github.com/google/googletest
+    - cd googletest/googletest/cmake
+    - cmake ..
+    - make
+    - make install
+    - cd ../../..
+script:
+    - mkdir cmake
+    - cd cmake
+    - cmake ..
+    - make
+    -./async_http_test

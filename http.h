@@ -30,6 +30,8 @@ namespace zq {
             bool get(const std::string &url, HTTP_CALLBACK cb = NULL);
             bool post(const std::string& url, const std::string& body, HTTP_CALLBACK cb = NULL);
 
+            bool start(Request *req);
+
             void set_header(const std::string& key, const std::string& value) { headers_[key] = value; }
             std::string get_header(const std::string& key) { return headers_[key]; }
             Header headers() { return headers_; }
@@ -39,8 +41,6 @@ namespace zq {
         private:
             Client(const Client &);
             Client &operator=(const Client &);
-
-            bool start(Request *req);
 
             bool request(http_method method, const std::string& url, const std::string& body = "", HTTP_CALLBACK cb = NULL);
 

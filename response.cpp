@@ -24,9 +24,12 @@ namespace zq{
             std::ostringstream oss;
             oss << "HTTP/";
             oss <<  proto_major_ << "." << proto_minor_ << " " << code_ << " " << status_ << "\r\n";
-            for(auto &kv: headers_){
-                oss << kv.first << ":" << kv.second << "\r\n";
+
+            Header::iterator it = headers_.begin();
+            for(; it != headers_.end(); it++){
+                oss << it->first << ":" << it->second << "\r\n";
             }
+            
             oss << "\r\n";
             oss << body_;
 
