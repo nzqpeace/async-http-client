@@ -29,7 +29,7 @@ namespace zq{
             for(; it != headers_.end(); it++){
                 oss << it->first << ":" << it->second << "\r\n";
             }
-            
+
             oss << "\r\n";
             oss << body_;
 

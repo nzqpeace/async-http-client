@@ -3,6 +3,9 @@
 //
 
 #include "url.h"
+
+#include <string.h>
+#include <stdlib.h>
 #include <sstream>
 
 namespace zq{
