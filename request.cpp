@@ -106,7 +106,7 @@ namespace zq{
                 resp_->set_last_error(oss.str());
 
                 resp_->success_ = false;
-                cb_(this, resp_);
+                callback(resp_);
                 return;
             }
 
@@ -124,7 +124,7 @@ namespace zq{
                 resp_->set_last_error(oss.str());
 
                 resp_->success_ = false;
-                cb_(this, resp_);
+                callback(resp_);
                 return;
             }
 
@@ -133,7 +133,7 @@ namespace zq{
                 startWrite(data.c_str(), data.size());
             }else{
                 resp_->success_ = false;
-                cb_(this, resp_);
+                callback(resp_);
             }
         }
 
@@ -145,7 +145,7 @@ namespace zq{
                 resp_->set_last_error(oss.str());
 
                 resp_->success_ = false;
-                cb_(this, resp_);
+                callback(resp_);
                 return;
             }
 
@@ -157,7 +157,7 @@ namespace zq{
                 resp_->set_last_error(oss.str());
 
                 resp_->success_ = false;
-                cb_(this, resp_);
+                callback(resp_);
                 return;
             }
 
@@ -177,7 +177,7 @@ namespace zq{
                 resp_->set_last_error(oss.str());
 
                 resp_->success_ = false;
-                cb_(this, resp_);
+                callback(resp_);
                 return;
             }
             startRead();
@@ -187,7 +187,8 @@ namespace zq{
             uv_timer_stop(handle);
 
             resp_->success_ = false;
-            cb_(this, resp_);
+            callback(resp_);
+
             return;
         }
 
@@ -244,9 +245,7 @@ namespace zq{
         int Request::on_message_complete(http_parser* parser) {
             parse_completed_ = true;
             resp_->success_ = true;
-            cb_(this, resp_);
-
-            resp_->reset();
+            callback(resp_);
             return 0;
         }
 
@@ -258,6 +257,14 @@ namespace zq{
         int Request::on_chunk_complete(http_parser* parser) {
             parse_completed_ = true;
             return 0;
+        }
+
+        void Request::callback(Response *resp) {
+            if(cb_){
+                cb_(this, resp);
+                cb_ = NULL;
+            }
+            resp->reset();
         }
 
         void AsyncEventCallBack::async_cb(uv_async_t *async_handle) {

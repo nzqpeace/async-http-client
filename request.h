@@ -103,6 +103,8 @@ namespace zq{
             Request(const Request &);
             Request &operator=(const Request &);
 
+            void callback(Response* resp);
+
         private:
             static uint64_t auto_id_;
             uint64_t id_;

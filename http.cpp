@@ -38,10 +38,10 @@ namespace zq{
                              const std::string &body /* = "" */, HTTP_CALLBACK cb /* = NULL */)
         {
             Request* req = new Request(loop_, method, url, body, cb);
-//            ReqID req_id = req->get_id();
-//            Response* res = req->get_response();
-//
-//            session_maps_[req_id] = std::make_pair(req, res);
+            ReqID req_id = req->get_id();
+            Response* res = req->get_response();
+
+            session_maps_[req_id] = std::make_pair(req, res);
             return start(req);
         }
 
