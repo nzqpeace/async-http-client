@@ -84,7 +84,7 @@ namespace zq{
             virtual void onConnect(uv_connect_t* req, int status);
             virtual void onReadDone(uv_stream_t *handle, ssize_t nread, const char *buf);
             virtual void onWriteDone(uv_write_t *req, int status);
-            virtual void onTimer(uv_timer_t *handle, int status);
+            virtual void onTimer(uv_timer_t *handle);
 
             // http parser callback
             friend class HTTPParserCallBack;
@@ -128,6 +128,7 @@ namespace zq{
 
             uint64_t timeout_;
 
+            uv_timer_t* timer_;
             uv_async_t* async_handle_;
             uv_loop_t* uv_loop_;
             Response* resp_;

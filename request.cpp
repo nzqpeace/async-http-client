@@ -93,6 +93,10 @@ namespace zq{
             return oss.str();
         }
 
+        void Request::async_cb(uv_async_t *async_handle) {
+            resolve(url_.get_host(), url_.get_port());
+        }
+
         // socket callback
         void Request::onResolved(uv_getaddrinfo_t *resolver, int status, struct addrinfo *res){
             if(0 != status){
@@ -179,17 +183,12 @@ namespace zq{
             startRead();
         }
 
-        void Request::onTimer(uv_timer_t *handle, int status){
-            if(0 != status){
-                std::ostringstream oss;
-                oss << "timeout, error[";
-                oss << uv_err_name(status) << "] reason[" << uv_strerror(status) << "]";
-                resp_->set_last_error(oss.str());
+        void Request::onTimer(uv_timer_t *handle){
+            uv_timer_stop(handle);
 
-                resp_->success_ = false;
-                cb_(this, resp_);
-                return;
-            }
+            resp_->success_ = false;
+            cb_(this, resp_);
+            return;
         }
 
         // http parser callback
@@ -259,10 +258,6 @@ namespace zq{
         int Request::on_chunk_complete(http_parser* parser) {
             parse_completed_ = true;
             return 0;
-        }
-
-        void Request::async_cb(uv_async_t *async_handle) {
-            resolve(url_.get_host(), url_.get_port());
         }
 
         void AsyncEventCallBack::async_cb(uv_async_t *async_handle) {

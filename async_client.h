@@ -16,7 +16,7 @@ namespace zq{
             virtual void onConnect(uv_connect_t* req, int status) = 0;
             virtual void onReadDone(uv_stream_t *handle, ssize_t nread, const char *buf) = 0;
             virtual void onWriteDone(uv_write_t *req, int status) = 0;
-            virtual void onTimer(uv_timer_t *handle, int status) = 0;
+            virtual void onTimer(uv_timer_t *handle) = 0;
         };
 
         class AsyncClient
@@ -66,7 +66,7 @@ namespace zq{
             static void connectDone(uv_connect_t* req, int status);
             static void readDone(uv_stream_t *handle, ssize_t nread, const uv_buf_t *buf);
             static void writeDone(uv_write_t *req, int status);
-            static void timeout(uv_timer_t *handle, int status);
+            static void timeout(uv_timer_t *handle);
 
         private:
             static size_t   baseID_;

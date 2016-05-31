@@ -58,6 +58,7 @@ namespace zq{
 
         void AsyncClient::set_timeout(uint64_t timeout) {
             timeout_ = timeout;
+            uv_timer_init(loop_, timer_);
         }
 
         size_t AsyncClient::getClientID() {
@@ -103,6 +104,8 @@ namespace zq{
         }
 
         bool AsyncClient::resolve(const std::string& node, int service){
+            uv_timer_start(timer_, timeout, timeout_, 0);
+
             std::ostringstream oss;
             oss << service;
             return resolve(node, oss.str());
@@ -201,11 +204,11 @@ namespace zq{
             pThis->cb_->onWriteDone(req, status);
         }
 
-        void AsyncClient::timeout(uv_timer_t *handle, int status)
+        void AsyncClient::timeout(uv_timer_t *handle)
         {
             AsyncClient* pThis = reinterpret_cast<AsyncClient*>(handle->data);
             pThis->setStatus(Timeout);
-            pThis->cb_->onTimer(handle, status);
+            pThis->cb_->onTimer(handle);
         }
     }
 }
