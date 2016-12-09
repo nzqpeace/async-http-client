@@ -161,8 +161,7 @@ namespace zq{
                 return;
             }
 
-            if (!chunk_mode_ ||
-                (chunk_mode_ && http_body_is_final(&parser_) != 0)){
+            if (parse_completed_){
                 uv_read_stop(handle);
 
 //                delete this;
